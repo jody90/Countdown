@@ -1,11 +1,15 @@
-var path    = require('path');
-var fs      = require('fs');
-var q       = require("q");
-var express = require('express');
-var http    = require('http');
-var app     = express();
-var server  = http.createServer(app);
-var io      = require('socket.io').listen(server);
+var path         = require('path');
+var fs           = require('fs');
+var q            = require("q");
+var WatchJS      = require("watchjs")
+var watch        = WatchJS.watch;
+var unwatch      = WatchJS.unwatch;
+var callWatchers = WatchJS.callWatchers;
+var express      = require('express');
+var http         = require('http');
+var app          = express();
+var server       = http.createServer(app);
+var io           = require('socket.io').listen(server);
 
 var passwords = {
     "reset" : "reset",
@@ -25,24 +29,46 @@ app.use('/node_modules', express.static(__dirname + '/node_modules'));
 console.log("storage: ", storage);
 
 io.on('connection', function (socket) {
-    socket.emit('availableCountdowns', { hello: 'world' });
-    socket.on('my other event', function (data) {
-        console.log(data);
+
+    // Send all availableCountdowns to the connected Client
+    socket.emit('availableCountdowns', countdowns);
+
+    socket.on('startCountdown', function (data) {
+        var countdownId = data.countdownId;
+        startCountdown(countdownId);
+        // console.log(data);
     });
+
+    watch(countdowns, function(){
+        console.log("changed: ", countdowns.counter_0.currentState);
+        socket.broadcast.emit('availableCountdowns', countdowns);
+    });
+
 });
 
-var countdowns = [
-    {
-        name: "Countdown 1",
+var countdowns = {
+    "counter_0": {
+        id: "counter_0",
+        name: "Countdown 0",
         duration: 180,
         currentState: '',
     },
-    {
-        name: "Countdown 2",
+    "counter_1": {
+        id: "counter_1",
+        name: "Countdown 1",
         duration: 360,
         currentState: '',
     }
-];
+};
+
+var timer = {};
+
+var startCountdown = function(id) {
+    countdowns[id].currentState = countdowns[id].currentState || countdowns[id].duration;
+    timer[id] = setInterval(function() {
+        countdowns[id].currentState = countdowns[id].currentState - 1;
+    }, 60000);
+}
 
 // Routing
 app.get('/', function(req, res) {
