@@ -22,7 +22,6 @@ var angularScripts = [
 
 var sassFiles = './src/sass/*.scss';
 var jsFiles = './src/js/*.js';
-var angularFiles = './src/angular/*.js';
 var imageFiles = './src/images';
 
 function handleError(err) {
@@ -41,7 +40,7 @@ gulp.task('webserver', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch([sassFiles, jsFiles, angularFiles, imageFiles], ['sass', 'js', 'angular', 'images']);
+    gulp.watch([sassFiles, jsFiles, angularScripts, imageFiles], ['sass', 'js', 'angular', 'images']);
 })
 
 gulp.task('images', function() {
