@@ -16,7 +16,8 @@ var scripts = [
 ];
 
 var angularScripts = [
-    './src/angular/app.js'
+    './src/angular/app.js',
+    './src/angular/controller/IndexController.js'
 ];
 
 var sassFiles = './src/sass/*.scss';
@@ -54,8 +55,8 @@ gulp.task('js', function() {
     return gulp.src(jsFiles)
     .pipe(sourcemaps.init())
     .pipe(concat('scripts.min.js'))
-    .pipe(sourcemaps.write())
-    .pipe(uglify())
+    .pipe(gutil.env.env === 'production' ? uglify() : gutil.noop())
+    .pipe(gutil.env.env === 'production' ? gutil.noop() : sourcemaps.write())
     .pipe(gulp.dest('./ressources/js'))
     .pipe(livereload());
 });
@@ -63,8 +64,9 @@ gulp.task('js', function() {
 gulp.task('angular', function() {
     return gulp.src(angularScripts)
         .pipe(sourcemaps.init())
-        .pipe(concat('angular.min.js'))
-        .pipe(uglify())
+        .pipe(concat('customAngular.min.js'))
+        .pipe(gutil.env.env === 'production' ? gutil.noop() : sourcemaps.write())
+        .pipe(gutil.env.env === 'production' ? uglify() : gutil.noop())
         .pipe(gulp.dest('./ressources/angular'))
         .pipe(livereload());
 });
@@ -73,8 +75,8 @@ gulp.task('sass', function () {
     return gulp.src('./src/sass/style.scss')
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', handleError))
-        .pipe(gutil.env.type === 'production' ? cleanCss() : gutil.noop())
-        .pipe(gutil.env.type === 'production' ? gutil.noop() : sourcemaps.write())
+        .pipe(gutil.env.env === 'production' ? cleanCss() : gutil.noop())
+        .pipe(gutil.env.env === 'production' ? gutil.noop() : sourcemaps.write())
         .pipe(rename({
             basename: "style.min"
         }))

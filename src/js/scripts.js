@@ -1,5 +1,5 @@
 $(document).ready(function() {
 
-    console.log("AngularWebApp ready");
+    // console.log("AngularWebApp ready");
 
 })

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="HochzeitWebApp">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Hochzeit Barbara Matthias</title>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="manifest" href="images/manifest.json">
+    <link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.min.css">
+
+    <!-- JS Scripts -->
+    <!-- Librarys -->
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-route/angular-route.min.js"></script>
+
+    <!-- Custom -->
+    <script type="text/javascript" src="angular/customAngular.min.js"></script>
+
+</head>
+<body ng-app="MyApp">
+
+    <div class="overlay hide">
+        <img class="loading" src="/images/loading.gif">
+    </div>
+
+    <div class="container-fluid">
+
+        <div class="header">
+            <h1>{{headerText}}</h1>
+        </div>
+
+        <!-- <nav class="navbar navbar-default navbar-static-top">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <div class="burger-text">
+                        Menü
+                    </div>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#!/">
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li ng-class="currentPath == '/upload' ? 'active' : ''">
+                        <a href="#!/upload">
+                            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                            Upload
+                        </a>
+                    </li>
+                    <li ng-class="currentPath == '/gallery' ? 'active' : ''">
+                        <a href="#!/gallery">
+                            <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                            Gallerie
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav> -->
+
+        <div ng-view></div>
+
+    </div>
+
+    <script type="text/javascript" src="scripts/scripts.min.js"></script>
+
+</body>
+</html>
