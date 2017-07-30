@@ -7,7 +7,7 @@
         <button class="btn btn-default btn-block adminNewButton" ng-click="new()">
             Neuen Timer anlegen
         </button>
-        <div class="countdownSettingsWrapper" ng-repeat="countdown in adminCountdowns">
+        <div class="countdownSettingsWrapper" ng-repeat="countdown in adminCountdowns track by $index">
             <h1 class="countdownName">
                 {{countdown.name}}
             </h1>

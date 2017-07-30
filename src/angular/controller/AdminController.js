@@ -48,6 +48,8 @@ myApp.controller('AdminController', ['$scope', '$rootScope', '$location', 'socke
             sayTime: []
         };
 
+        console.log("aaa: ", $scope.adminCountdowns);
+
         $scope.adminCountdowns.unshift(obj);
     }
 
