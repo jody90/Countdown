@@ -21,7 +21,6 @@ myApp.controller('CountdownController', ['$scope', '$rootScope', 'socket', '$rou
 
                 var countdownCurrentState = newValue.id + "_" + newValue.currentState;
 
-
                 if (nowSayedState != countdownCurrentState) {
 
                     nowSayedState = countdownCurrentState;

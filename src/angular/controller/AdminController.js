@@ -1,38 +1,30 @@
-myApp.controller('AdminController', ['$scope', '$rootScope', 'socket', function($scope, $rootScope, socket) {
+myApp.controller('AdminController', ['$scope', '$rootScope', '$location', 'socket', function($scope, $rootScope, $location, socket) {
 
     socket.emit('adminGetCountdowns');
 
     $scope.adminCountdowns = [];
 
+    $scope.logout = function() {
+        localStorage.setItem("isLoggedIn", false);
+        $rootScope.isLoggedIn = false;
+        $location.path("/");
+    }
+
     socket.on('requestedCountdowns', function(data) {
-        // $scope.adminCountdowns = data;
         for (countdown in data) {
             $scope.adminCountdowns.push(data[countdown]);
         }
     })
 
-    $scope.$watch("adminCountdowns", function(newValue, oldValue) {
-        if (newValue != undefined) {
-            console.log(newValue);
-        }
-    });
-
     $scope.save = function(data) {
-        // console.log("data: ", data);
 
         for (var i = 0; i < $scope.adminCountdowns.length; i++) {
             if ($scope.adminCountdowns[i].id == data.id) {
                 $scope.adminCountdowns[i] = data;
             }
         }
-
         sendSave();
     }
-
-    socket.on('test', function(data) {
-        // $rootScope.countdowns = data;
-        console.log("data", data);
-    })
 
     $scope.delete = function(countdownId) {
 
@@ -41,7 +33,6 @@ myApp.controller('AdminController', ['$scope', '$rootScope', 'socket', function(
                 $scope.adminCountdowns.splice(i, 1);
             }
         }
-
         sendSave();
     }
 
@@ -58,17 +49,23 @@ myApp.controller('AdminController', ['$scope', '$rootScope', 'socket', function(
         };
 
         $scope.adminCountdowns.unshift(obj);
-
     }
 
     function sendSave() {
         var countdownsObject = {};
 
         for (var i = 0; i < $scope.adminCountdowns.length; i++) {
+            if (typeof $scope.adminCountdowns[i].sayTime == "string") {
+                $scope.adminCountdowns[i].sayTime = $.map($scope.adminCountdowns[i].sayTime.split(","), function(value){
+                    return parseInt(value);
+                });
+            }
             countdownsObject[$scope.adminCountdowns[i].id] = $scope.adminCountdowns[i];
         }
-        // console.log("countdownId: ", countdownId);
+
         socket.emit('saveCountdowns', countdownsObject);
+
+        location.reload();
     }
 
     function generateUUID() {

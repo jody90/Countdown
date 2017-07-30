@@ -18,8 +18,6 @@ var countdownsStorageFs = fs.readFileSync(__dirname + '/storage/countdowns.json'
 var countdownsStorage = JSON.parse(countdownsStorageFs);
 var countdowns = countdownsStorage;
 
-// console.log(countdowns);
-
 app.use('/css', express.static(__dirname + '/ressources/css'));
 app.use('/angular', express.static(__dirname + '/ressources/angular'));
 app.use('/images', express.static(__dirname + '/ressources/images'));
@@ -35,26 +33,32 @@ app.get('/', function(req, res) {
 io.on('connection', function (socket) {
 
     watch(countdowns, function(){
-        // console.log("changed: ", countdowns);
+        // console.log("changed: ", JSON.stringify(countdowns));
         socket.broadcast.emit('availableCountdowns', countdowns);
-    });
+
+        fs.writeFile(__dirname + "/storage/countdowns.json", JSON.stringify(countdowns), { flag: 'w' }, function(err) {
+            if(err) {
+                return console.log(err);
+            }
+        });
+
+    }, 50, true);
 
     socket.emit('availableCountdowns', countdowns);
 
     socket.emit('meta', {passwords: passwords});
 
-    socket.broadcast.emit('test', {jody: "test"});
     socket.on('saveCountdowns', function(data) {
 
         fs.writeFile(__dirname + "/storage/countdowns.json", JSON.stringify(data), { flag: 'w' }, function(err) {
             if(err) {
                 return console.log(err);
             }
+
             countdowns = data;
 
             socket.broadcast.emit('availableCountdowns', countdowns);
 
-            console.log("The file was saved!");
         });
     })
 
@@ -94,7 +98,7 @@ var startCountdown = function(id) {
             countdowns[id].currentState = 0;
             clearInterval(timer[id]);
         }
-    }, 300); // 60000 one minute
+    }, 500); // 60000 one minute
 }
 
 var pauseCountdown = function(id) {

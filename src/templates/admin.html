@@ -1,3 +1,7 @@
+<button class="btn btn-danger btnAdmin" ng-click="logout('admin')" ng-if="isLoggedIn">
+    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+    Logout
+</button>
 <div class="row">
     <div class="col-xs-12">
         <button class="btn btn-default btn-block adminNewButton" ng-click="new()">
@@ -8,12 +12,6 @@
                 {{countdown.name}}
             </h1>
             <div class="row">
-                <!-- <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="form-group">
-                        <label class="control-label" for="countdownId">ID</label>
-                        <input ng-model="countdown.id" type="text" class="form-control" name="countdownId" placeholder="Countdown ID">
-                    </div>
-                </div> -->
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <div class="form-group">
                         <label class="control-label" for="countdownName">Name</label>
@@ -35,7 +33,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <div class="form-group">
                         <label class="control-label" for="countdownSayTime">Zeitansage bei: Komma separierte Angabe von Minuten</label>
-                        <input ng-model="countdown.sayTime" type="text" class="form-control" name="countdownSayTime" placeholder="Countdown Zeitansage bei">
+                        <input ng-model="countdown.sayTime" ng-value="countdown.sayTime.toString()" type="text" class="form-control" name="countdownSayTime" placeholder="Countdown Zeitansage bei">
                     </div>
                 </div>
             </div>

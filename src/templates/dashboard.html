@@ -1,4 +1,7 @@
-
+<button class="btn btn-danger btnAdmin" ng-click="logout('admin')" ng-if="isLoggedIn">
+    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+    Logout
+</button>
 <button class="btn btn-default btnAdmin" ng-click="askPassword('admin')">
     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
     Admin
@@ -26,17 +29,14 @@
                         {{countdown.name}}
                     </div>
                     <div class="countdownCurrentStateWrapper">
-                        <div class="countdownCurrentState" ng-class="countdown.currentState < countdown.dangerTimeLeft ? 'danger' : 'ok'">
-                            {{countdown.currentState}}
-                        </div>
                         <round-progress
                         max="countdown.duration"
                         current="countdown.currentState"
                         color="#04caff"
                         bgcolor="#252525"
-                        radius="360"
-                        stroke="20"
-                        semi="false"
+                        radius="100"
+                        stroke="10"
+                        semi="true"
                         rounded="true"
                         clockwise="true"
                         responsive="true"
@@ -45,6 +45,9 @@
                         animation-delay="0">
                     </round-progress>
 
+                    <div class="countdownCurrentState" ng-class="countdown.currentState < countdown.dangerTimeLeft ? 'danger' : 'ok'">
+                        {{countdown.currentState}}
+                    </div>
 
                     </div>
                     <div class="countdownDuration">

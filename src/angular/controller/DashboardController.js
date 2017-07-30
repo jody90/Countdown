@@ -9,9 +9,11 @@ myApp.controller('DashboardController', ['$scope', '$rootScope', '$location', '$
             $scope.password = "";
             $('#adminPasswordModal').modal('hide');
 
+            localStorage.setItem("isLoggedIn", true);
+            $rootScope.isLoggedIn = true;
+
             // wait for animation ended
             $timeout(function() {
-                console.log("redirect");
                 $location.path("/admin");
             }, 250);
         }
@@ -21,9 +23,20 @@ myApp.controller('DashboardController', ['$scope', '$rootScope', '$location', '$
     }
 
     $scope.askPassword = function(type) {
-        $('#adminPasswordModal').modal('show');
-        $scope.askPasswordType = type;
+        if ($rootScope.isLoggedIn) {
+            $location.path("/admin");
+        }
+        else {
+            $('#adminPasswordModal').modal('show');
+            $scope.askPasswordType = type;
+        }
     }
 
+    $scope.logout = function() {
+        console.log("logout");
+        localStorage.setItem("isLoggedIn", false);
+        $rootScope.isLoggedIn = false;
+        $location.path("/");
+    }
 
 }])

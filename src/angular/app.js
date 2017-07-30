@@ -20,15 +20,10 @@ myApp.config(function($routeProvider) {
 myApp.run(['$rootScope', '$location', '$routeParams', 'socket', function($rootScope, $location, $routeParams, socket) {
 
     $rootScope.mutedCountdowns = JSON.parse(localStorage.getItem("mutedCountdowns")) || [];
+    $rootScope.isLoggedIn = localStorage.getItem("isLoggedIn") || false;
 
     socket.on('availableCountdowns', function(data) {
         $rootScope.countdowns = data;
-        console.log("availableCountdowns", $rootScope.countdowns);
-    })
-
-    socket.on('test', function(data) {
-        // $rootScope.countdowns = data;
-        console.log("data", data);
     })
 
     socket.on('meta', function(data) {
@@ -47,7 +42,13 @@ myApp.run(['$rootScope', '$location', '$routeParams', 'socket', function($rootSc
             $rootScope.headerText = undefined;
         }
         else if ($rootScope.currentPath == "/admin") {
-            $rootScope.headerText = "Admin Bereich";
+            console.log("isLoggedIn: ", $rootScope.isLoggedIn);
+            if ($rootScope.isLoggedIn) {
+                $rootScope.headerText = "Admin Bereich";
+            }
+            else {
+                $location.path("/");
+            }
         }
         $('.navbar-collapse').collapse('hide');
 
