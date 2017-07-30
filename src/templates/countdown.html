@@ -1,0 +1,80 @@
+<div class="row margin-bottom-lg countdownPage">
+    <div class="col-xs-12">
+        <div class="countdownWrapper text-center">
+            <div class="countdownName">
+                {{countdown.name}}
+            </div>
+            <div class="countdownControls">
+                <button class="btn btn-success" ng-click="startCountdown(currentCountdownId)">
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                    Start
+                </button>
+                <button class="btn btn-primary" ng-click="pauseCountdown(currentCountdownId)">
+                    <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+                    Pause
+                </button>
+                <!-- <button class="btn btn-danger" ng-click="resetCountdown(currentCountdownId)" data-toggle="modal" data-target="#myModal"> -->
+                <button class="btn btn-danger" ng-click="askPassword('reset')">
+                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    Reset
+                </button>
+                <button class="btn btn-default" ng-click="muteCountdown(currentCountdownId)" ng-if="!isCountdownMuted">
+                    <span class="glyphicon glyphicon-volume-up muteIcon" aria-hidden="true"></span>
+                    Zeitansage aktiv
+                </button>
+                <button class="btn btn-default" ng-click="muteCountdown(currentCountdownId)" ng-if="isCountdownMuted">
+                    <span class="glyphicon glyphicon-volume-off muteIcon" aria-hidden="true"></span>
+                    Zeitansage inaktiv
+                </button>
+            </div>
+            <div class="countdownCurrentStateWrapper">
+                <div class="countdownCurrentState" ng-class="countdown.currentState < countdown.dangerTimeLeft ? 'danger' : 'ok'">
+                    {{countdown.currentState}}
+                </div>
+                <round-progress
+                max="countdown.duration"
+                current="countdown.currentState"
+                color="#04caff"
+                bgcolor="#252525"
+                radius="360"
+                stroke="20"
+                semi="false"
+                rounded="true"
+                clockwise="true"
+                responsive="true"
+                duration="800"
+                animation="easeInOutQuart"
+                animation-delay="0">
+            </round-progress>
+
+
+        </div>
+        <div class="countdownDuration">
+            Countdown Duration: {{countdown.duration}}
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Passwort erforderlich</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" ng-class="passwordWrong ? 'has-error has-feedback' : ''">
+                    <label class="control-label" for="password">Passwort</label>
+                    <div>
+                        <input ng-model="password" ng-change="passwordWrong=''" type="password" class="form-control" id="password" name="password" placeholder="Passwort">
+                        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="doRestrictedAction(askPasswordType, password, currentCountdownId)">Absenden</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-xs-12">
+        <button class="btn btn-default btn-block adminNewButton" ng-click="new()">
+            Neuen Timer anlegen
+        </button>
+        <div class="countdownSettingsWrapper" ng-repeat="countdown in adminCountdowns">
+            <h1 class="countdownName">
+                {{countdown.name}}
+            </h1>
+            <div class="row">
+                <!-- <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="countdownId">ID</label>
+                        <input ng-model="countdown.id" type="text" class="form-control" name="countdownId" placeholder="Countdown ID">
+                    </div>
+                </div> -->
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="countdownName">Name</label>
+                        <input ng-model="countdown.name" type="text" class="form-control" name="countdownName" placeholder="Countdown Name">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="countdownDuration">Dauer in Minuten</label>
+                        <input ng-model="countdown.duration" type="text" class="form-control" name="countdownDuration" placeholder="Countdown Dauer">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="countdownDangerTimeLeft">Warnen bei {{countdown.dangerTimeLeft}} Minuten</label>
+                        <input ng-model="countdown.dangerTimeLeft" type="text" class="form-control" name="countdownDangerTimeLeft" placeholder="Countdown Warnen bei">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="countdownSayTime">Zeitansage bei: Komma separierte Angabe von Minuten</label>
+                        <input ng-model="countdown.sayTime" type="text" class="form-control" name="countdownSayTime" placeholder="Countdown Zeitansage bei">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <button class="btn btn-danger btn-block adminSaveButton" ng-click="delete(countdown.id)">
+                        Löschen
+                    </button>
+                </div>
+                <div class="col-xs-6">
+                    <button class="btn btn-success btn-block adminSaveButton" ng-click="save(countdown)">
+                        Speichern
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

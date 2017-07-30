@@ -17,7 +17,9 @@ var scripts = [
 
 var angularScripts = [
     './src/angular/app.js',
-    './src/angular/controller/IndexController.js'
+    './src/angular/controller/DashboardController.js',
+    './src/angular/controller/CountdownController.js',
+    './src/angular/controller/AdminController.js'
 ];
 
 var sassFiles = './src/sass/*.scss';
@@ -84,4 +86,4 @@ gulp.task('sass', function () {
 });
 
 // Default Task
-gulp.task('default', ['sass', 'js', 'angular', 'images', 'webserver', 'watch']);
+gulp.task('default', ['sass', 'js', 'angular', 'images', 'watch']);

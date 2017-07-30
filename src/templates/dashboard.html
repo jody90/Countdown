@@ -1,0 +1,81 @@
+
+<button class="btn btn-default btnAdmin" ng-click="askPassword('admin')">
+    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+    Admin
+</button>
+<h1>
+    Willkommen im Countdown Manager
+</h1>
+
+<h3>
+    Du befindest dich auf dem Dashboard
+</h3>
+
+<p>
+    Hier hast du die Übersicht über alle aktiven Countdowns. Über das Menü am oberen Bildschirmrand kannst du deinen Countdown auswählen.
+</p>
+
+<div class="row countdownDashboard">
+
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="countdown in countdowns">
+
+        <div class="row margin-bottom-lg">
+            <div class="col-xs-12">
+                <div class="countdownWrapper text-center">
+                    <div class="countdownName">
+                        {{countdown.name}}
+                    </div>
+                    <div class="countdownCurrentStateWrapper">
+                        <div class="countdownCurrentState" ng-class="countdown.currentState < countdown.dangerTimeLeft ? 'danger' : 'ok'">
+                            {{countdown.currentState}}
+                        </div>
+                        <round-progress
+                        max="countdown.duration"
+                        current="countdown.currentState"
+                        color="#04caff"
+                        bgcolor="#252525"
+                        radius="360"
+                        stroke="20"
+                        semi="false"
+                        rounded="true"
+                        clockwise="true"
+                        responsive="true"
+                        duration="800"
+                        animation="easeInOutQuart"
+                        animation-delay="0">
+                    </round-progress>
+
+
+                    </div>
+                    <div class="countdownDuration">
+                        Countdown Duration: {{countdown.duration}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="adminPasswordModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Passwort erforderlich</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" ng-class="passwordWrong ? 'has-error has-feedback' : ''">
+                    <label class="control-label" for="password">Passwort</label>
+                    <div>
+                        <input ng-model="password" ng-change="passwordWrong=''" type="password" class="form-control" id="password" name="password" placeholder="Passwort">
+                        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="doAdminAction(password)">Absenden</button>
+            </div>
+        </div>
+    </div>
+</div>

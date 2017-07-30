@@ -1,0 +1,47 @@
+.countdownDashboard {
+    .countdownWrapper {
+
+        .countdownName {
+            margin-left: -25px;
+            margin-right: -25px;
+            margin-top: -25px;
+        }
+
+        .countdownCurrentStateWrapper {
+
+            .countdownCurrentState {
+                top: 31%;
+            }
+        }
+
+        .countdownDuration {
+            font-size: 30px;
+        }
+    }
+
+    @media (max-width: $screen-xs-max) {
+        .countdownWrapper {
+            .countdownCurrentStateWrapper {
+                .countdownCurrentState {
+                    top: 40%;
+                    font-size: 60px;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 405px) {
+        .countdownWrapper {
+            .countdownCurrentStateWrapper {
+                .countdownCurrentState {
+                    top: 35%;
+                    font-size: 60px;
+                }
+            }
+        }
+    }
+}
+
+.btnAdmin {
+    float: right;
+}

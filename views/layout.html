@@ -5,7 +5,7 @@
     <meta name="description" content="HochzeitWebApp">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Hochzeit Barbara Matthias</title>
+    <title>Countdown Manager</title>
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
@@ -25,6 +25,7 @@
     <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
     <script type="text/javascript" src="node_modules/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-svg-round-progressbar/build/roundProgress.min.js"></script>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 
     <!-- Custom -->
@@ -39,7 +40,34 @@
 
     <div class="container-fluid">
 
-        <div class="header">
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <div class="burger-text">
+                        Menü
+                    </div>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#!/">
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li ng-repeat="countdown in countdowns" ng-class="currentCountdownId == countdown.id ? 'active' : ''">
+                        <a ng-href="#!/countdown/{{countdown.id}}">
+                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                            {{countdown.name}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="header" ng-if="headerText !== undefined">
             <h1>{{headerText}}</h1>
         </div>
 
