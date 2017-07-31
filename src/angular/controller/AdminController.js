@@ -48,8 +48,6 @@ myApp.controller('AdminController', ['$scope', '$rootScope', '$location', 'socke
             sayTime: []
         };
 
-        console.log("aaa: ", $scope.adminCountdowns);
-
         $scope.adminCountdowns.unshift(obj);
     }
 
@@ -57,6 +55,10 @@ myApp.controller('AdminController', ['$scope', '$rootScope', '$location', 'socke
         var countdownsObject = {};
 
         for (var i = 0; i < $scope.adminCountdowns.length; i++) {
+            
+            // dont loose current state on save
+            $scope.adminCountdowns[i].currentState = $rootScope.countdowns[$scope.adminCountdowns[i].id].currentState;
+            
             if (typeof $scope.adminCountdowns[i].sayTime == "string") {
                 $scope.adminCountdowns[i].sayTime = $.map($scope.adminCountdowns[i].sayTime.split(","), function(value){
                     return parseInt(value);
