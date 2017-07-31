@@ -57,6 +57,9 @@ myApp.controller('AdminController', ['$scope', '$rootScope', '$location', 'socke
         for (var i = 0; i < $scope.adminCountdowns.length; i++) {
             
             // dont loose current state on save
+            
+            console.log("currentState: ", $rootScope.countdowns[$scope.adminCountdowns[i].id].currentState);
+            
             $scope.adminCountdowns[i].currentState = $rootScope.countdowns[$scope.adminCountdowns[i].id].currentState;
             
             if (typeof $scope.adminCountdowns[i].sayTime == "string") {
