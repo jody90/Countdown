@@ -27,7 +27,12 @@ app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
 // Routing
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/views/layout.html'));
+    if (process.env.NODE_ENV == "production") {
+        res.sendFile(path.join(__dirname + '/views/layout_production.html'));
+    }
+    else {
+        res.sendFile(path.join(__dirname + '/views/layout.html'));
+    }
 })
 
 io.on('connection', function (socket) {
