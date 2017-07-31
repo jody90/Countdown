@@ -57,7 +57,7 @@ myApp.run(['$rootScope', '$location', '$routeParams', 'socket', function($rootSc
 }]);
 
 myApp.factory('socket', function ($rootScope) {
-    var socket = io.connect();
+    var socket = io.connect('http://zusappcenter1.sortimo.de', {path: "/countdown/socket.io"});
     return {
         on: function (eventName, callback) {
             socket.on(eventName, function () {
