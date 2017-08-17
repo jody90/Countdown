@@ -53,17 +53,43 @@ io.on('connection', function (socket) {
 
     socket.emit('meta', {passwords: passwords});
 
-    socket.on('saveCountdowns', function(data) {
+    socket.on('saveCountdown', function(data) {
 
-        fs.writeFile(__dirname + "/storage/countdowns.json", JSON.stringify(data), { flag: 'w' }, function(err) {
+        if (countdowns[data.id] === undefined) {
+            countdowns[data.id] = data;
+        }
+        else {
+            for (var countdown in countdowns) {
+                if (countdowns[countdown].id == data.id) {                
+                    countdowns[countdown] = data;
+                }
+            }
+        }
+
+        fs.writeFile(__dirname + "/storage/countdowns.json", JSON.stringify(countdowns), { flag: 'w' }, function(err) {
             if(err) {
                 return console.log(err);
             }
-
-            countdowns = data;
-
+            
             socket.broadcast.emit('availableCountdowns', countdowns);
+            
+        });
+    })
+    
+    socket.on('deleteCountdown', function(data) {
 
+        if (countdowns[data.id] !== undefined) {
+            delete countdowns[data.id];
+        }
+
+        fs.writeFile(__dirname + "/storage/countdowns.json", JSON.stringify(countdowns), { flag: 'w' }, function(err) {
+            if(err) {
+                return console.log(err);
+            }
+            else {
+                console.log(data);
+                socket.broadcast.emit('availableCountdowns', countdowns);
+            }
         });
     })
 

@@ -3,7 +3,7 @@ myApp.controller('CountdownController', ['$scope', '$rootScope', 'socket', '$rou
     var countdownId = $rootScope.currentCountdownId;
     var nowSayedState;
     var scopeChanged = false;
-
+    
     $scope.isCountdownMuted = $rootScope.mutedCountdowns.indexOf($rootScope.currentCountdownId) != -1 ? true : false;
 
     $rootScope.$watch("countdowns", function(newValue, oldValue) {
@@ -16,6 +16,10 @@ myApp.controller('CountdownController', ['$scope', '$rootScope', 'socket', '$rou
         if (newValue != undefined) {
 
             scopeChanged = true;
+            
+            if ($scope.countdown !== undefined && $scope.configCountdown === undefined) {
+                $scope.configCountdown = angular.copy($scope.countdown);
+            }
 
             if (newValue.sayTime.indexOf(newValue.currentState) > -1) {
 
@@ -33,7 +37,6 @@ myApp.controller('CountdownController', ['$scope', '$rootScope', 'socket', '$rou
             }
         }
     });
-
 
     $scope.doRestrictedAction = function(type, password) {
         $('#passwordModal').modal('show')
@@ -65,11 +68,28 @@ myApp.controller('CountdownController', ['$scope', '$rootScope', 'socket', '$rou
                     $scope.resetCountdown(currentCountdownId);
                     $('#passwordModal').modal('hide');
                 break;
+                case "config" :
+                    $scope.password = "";
+                    $('#passwordModal').modal('hide');
+                    $('#configModal').modal('show');
+                break;
             }
         }
         else {
             $scope.passwordWrong = true;
         }
+    }
+    
+    $scope.save = function(countdown) {
+        
+        $scope.configCountdown.currentState = countdown.duration;
+        
+        if (typeof $scope.configCountdown.sayTime == "string") {
+            $scope.configCountdown.sayTime = $.map(countdown.sayTime.split(","), function(value){
+                return parseInt(value);
+            });
+        }
+        socket.emit('saveCountdown', $scope.configCountdown);
     }
 
     $scope.askPassword = function(type) {
@@ -99,6 +119,10 @@ myApp.controller('CountdownController', ['$scope', '$rootScope', 'socket', '$rou
         // Store
         localStorage.setItem("mutedCountdowns", JSON.stringify($rootScope.mutedCountdowns));
     }
+    
+    $('#adminPasswordModal').on('hidden.bs.modal', function (e) {
+        $scope.password = "";
+    })
 
     if ('speechSynthesis' in window) {
 

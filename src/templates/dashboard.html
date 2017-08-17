@@ -1,10 +1,6 @@
-<button class="btn btn-danger btnAdmin" ng-click="logout('admin')" ng-if="isLoggedIn">
-    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-    Logout
-</button>
-<button class="btn btn-default btnAdmin" ng-click="askPassword('admin')">
-    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-    Admin
+<button class="btn btn-default btnAdmin" ng-click="askPassword('config')">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    Neuer Countdown
 </button>
 <h1>
     Willkommen im Countdown Manager
@@ -54,6 +50,11 @@
                         Countdown Dauer:<br>
                         {{countdown.duration}} Minuten
                     </div>
+                    <div class="text-right">
+                        <button class="btn btn-danger" ng-click="askPassword('delete', countdown.id)">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,7 +62,7 @@
 
 </div>
 
-<div class="modal fade" id="adminPasswordModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -78,7 +79,49 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" ng-click="doAdminAction(password)">Absenden</button>
+                <button type="button" class="btn btn-primary" ng-click="doRestrictedAction(askPasswordType, password, askPasswordCountdownId)">Absenden</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="configModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Countdown Config</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label" for="countdownName">Name</label>
+                            <input ng-model="configCountdown.name" type="text" class="form-control" name="countdownName" placeholder="Countdown Name">
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label" for="countdownDuration">Dauer in Minuten</label>
+                            <input ng-model="configCountdown.duration" type="text" class="form-control" name="countdownDuration" placeholder="Countdown Dauer">
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label" for="countdownDangerTimeLeft">Warnen bei {{configCountdown.dangerTimeLeft}} Minuten verbleibend</label>
+                            <input ng-model="configCountdown.dangerTimeLeft" type="text" class="form-control" name="countdownDangerTimeLeft" placeholder="Countdown Warnen bei">
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label" for="countdownSayTime">Zeitansage bei: Komma separierte Angabe von Minuten</label>
+                            <input ng-model="configCountdown.sayTime" ng-value="configCountdown.sayTime.toString()" type="text" class="form-control" name="countdownSayTime" placeholder="Countdown Zeitansage bei">
+                        </div>
+                    </div>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Schließen</button>
+                <button type="button" class="btn btn-success" ng-click="save(configCountdown)">Speichern</button>
             </div>
         </div>
     </div>

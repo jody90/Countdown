@@ -10,17 +10,12 @@ myApp.config(function($routeProvider) {
         templateUrl : "templates/countdown.html",
         controller : "CountdownController"
     })
-    .when("/admin", {
-        templateUrl : "templates/admin.html",
-        controller : "AdminController"
-    })
     .otherwise({redirectTo: "/"});
 })
 
 myApp.run(['$rootScope', '$location', '$routeParams', 'socket', function($rootScope, $location, $routeParams, socket) {
 
     $rootScope.mutedCountdowns = JSON.parse(localStorage.getItem("mutedCountdowns")) || [];
-    $rootScope.isLoggedIn = localStorage.getItem("isLoggedIn") || false;
 
     socket.on('availableCountdowns', function(data) {
         $rootScope.countdowns = data;
@@ -41,15 +36,7 @@ myApp.run(['$rootScope', '$location', '$routeParams', 'socket', function($rootSc
         else if ($rootScope.currentPath.indexOf("/countdown/") != -1) {
             $rootScope.headerText = undefined;
         }
-        else if ($rootScope.currentPath == "/admin") {
-            console.log("isLoggedIn: ", $rootScope.isLoggedIn);
-            if ($rootScope.isLoggedIn) {
-                $rootScope.headerText = "Admin Bereich";
-            }
-            else {
-                $location.path("/");
-            }
-        }
+        
         $('.navbar-collapse').collapse('hide');
 
     });

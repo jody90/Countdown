@@ -18,8 +18,7 @@ var scripts = [
 var angularScripts = [
     './src/angular/app.js',
     './src/angular/controller/DashboardController.js',
-    './src/angular/controller/CountdownController.js',
-    './src/angular/controller/AdminController.js'
+    './src/angular/controller/CountdownController.js'
 ];
 
 var sassFiles = './src/sass/*.scss';
