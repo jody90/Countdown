@@ -60,7 +60,8 @@ myApp.controller('DashboardController', ['$scope', '$rootScope', '$location', '$
             duration: "",
             currentState: "",
             dangerTimeLeft: "",
-            sayTime: []
+            sayTime: [],
+            room: "default"
         };
 
     }

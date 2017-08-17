@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="description" content="HochzeitWebApp">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
     <title>Countdown Manager</title>
-
+    
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
@@ -15,11 +15,11 @@
     <link rel="manifest" href="images/manifest.json">
     <link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="theme-color" content="#ffffff">
-
+    
     <!-- CSS Styles -->
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.min.css">
-
+    
     <!-- JS Scripts -->
     <!-- Librarys -->
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
@@ -28,19 +28,19 @@
     <script type="text/javascript" src="node_modules/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="node_modules/angular-svg-round-progressbar/build/roundProgress.min.js"></script>
     <script type="text/javascript" src="socket.io/socket.io.js"></script>
-
+    
     <!-- Custom -->
     <script type="text/javascript" src="angular/customAngular.min.js"></script>
-
+    
 </head>
 <body ng-app="MyApp">
-
+    
     <div class="overlay hide">
         <img class="loading" src="images/loading.gif">
     </div>
-
+    
     <div class="container-fluid">
-
+        
         <nav class="navbar navbar-default navbar-static-top">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -55,28 +55,52 @@
                     <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
                 </a>
             </div>
-
+            
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li ng-repeat="countdown in countdowns" ng-class="currentCountdownId == countdown.id ? 'active' : ''">
-                        <a ng-href="#!/countdown/{{countdown.id}}">
+                    <!-- <li ng-repeat="countdown in countdowns"> -->
+                        
+                        <!-- <li ng-repeat="room in rooms">
+                            {{room}}
+                            <ul>
+                                <li ng-repeat="countdown in countdowns" ng-if="countdown.room == room">
+                                    {{countdown.name}}
+                                </li>
+                            </ul>
+                        </li> -->
+                        
+                        <li class="dropdown" ng-repeat="room in rooms">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                {{room}} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="countdown in countdowns" ng-if="countdown.room == room" ng-class="currentCountdownId == countdown.id ? 'active' : ''">
+                                    <a ng-href="#!/countdown/{{countdown.id}}">
+                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                        {{countdown.name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- <a ng-href="#!/countdown/{{countdown.id}}">
                             <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                             {{countdown.name}}
-                        </a>
-                    </li>
+                        </a> -->
+                    <!-- </li> -->
                 </ul>
             </div>
         </nav>
-
+        
         <div class="header" ng-if="headerText !== undefined">
             <h1>{{headerText}}</h1>
         </div>
-
+        
         <div ng-view></div>
-
+        
     </div>
-
+    
     <script type="text/javascript" src="scripts/scripts.min.js"></script>
-
+    
 </body>
 </html>

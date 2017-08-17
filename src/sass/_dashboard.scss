@@ -5,6 +5,18 @@
             margin-left: -25px;
             margin-right: -25px;
             margin-top: -25px;
+            
+            a {
+                color: #fff;
+                text-decoration: none;
+                
+                &:hover,
+                &:focus,
+                &:active {
+                    color: #fff;
+                    text-decoration: none;
+                }
+            }
         }
 
         .countdownCurrentStateWrapper {

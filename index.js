@@ -35,6 +35,19 @@ app.get('/', function(req, res) {
     }
 })
 
+var getRooms = function(countdowns, callback) {
+
+    var rooms = [];
+    
+    for (var i in countdowns) {
+        if (rooms.indexOf(countdowns[i].room) == -1) {
+            rooms.push(countdowns[i].room);
+        }
+    }
+    
+    return callback(rooms);
+}
+
 io.on('connection', function (socket) {
 
     watch(countdowns, function(){
@@ -50,6 +63,10 @@ io.on('connection', function (socket) {
     }, 50, true);
 
     socket.emit('availableCountdowns', countdowns);
+    
+    getRooms(countdowns, function(rooms) {
+        socket.emit('rooms', rooms);
+    });
 
     socket.emit('meta', {passwords: passwords});
 

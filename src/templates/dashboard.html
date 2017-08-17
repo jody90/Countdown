@@ -22,7 +22,9 @@
             <div class="col-xs-12">
                 <div class="countdownWrapper text-center">
                     <div class="countdownName">
-                        {{countdown.name}}
+                        <a ng-href="#!/countdown/{{countdown.id}}">
+                            {{countdown.name}}
+                        </a>
                     </div>
                     <div class="countdownCurrentStateWrapper">
                         <round-progress
@@ -98,6 +100,12 @@
                         <div class="form-group">
                             <label class="control-label" for="countdownName">Name</label>
                             <input ng-model="configCountdown.name" type="text" class="form-control" name="countdownName" placeholder="Countdown Name">
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label" for="countdownRoom">Raum</label>
+                            <input ng-model="configCountdown.room" type="text" class="form-control" name="countdownRoom" placeholder="Countdown Raum">
                         </div>
                     </div>
                     <div class="col-xs-12">

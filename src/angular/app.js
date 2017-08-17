@@ -20,6 +20,10 @@ myApp.run(['$rootScope', '$location', '$routeParams', 'socket', function($rootSc
     socket.on('availableCountdowns', function(data) {
         $rootScope.countdowns = data;
     })
+    
+    socket.on('rooms', function(data) {
+        $rootScope.rooms = data;
+    })
 
     socket.on('meta', function(data) {
         $rootScope.meta = data;
