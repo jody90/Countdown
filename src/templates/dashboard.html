@@ -15,38 +15,40 @@
 </p>
 
 <div class="row countdownDashboard">
-
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="countdown in countdowns">
-
-        <div class="row margin-bottom-lg">
-            <div class="col-xs-12">
-                <div class="countdownWrapper text-center">
-                    <div class="countdownName">
-                        <a ng-href="#!/countdown/{{countdown.id}}">
-                            {{countdown.name}}
-                        </a>
-                    </div>
-                    <div class="countdownCurrentStateWrapper">
-                        <round-progress
-                        max="countdown.duration"
-                        current="countdown.currentState"
-                        color="#04caff"
-                        bgcolor="#252525"
-                        radius="100"
-                        stroke="10"
-                        semi="true"
-                        rounded="true"
-                        clockwise="true"
-                        responsive="true"
-                        duration="800"
-                        animation="easeInOutQuart"
-                        animation-delay="0">
-                    </round-progress>
-
-                    <div class="countdownCurrentState" ng-class="countdown.currentState < countdown.dangerTimeLeft ? 'danger' : 'ok'">
-                        {{countdown.currentState}}
-                    </div>
-
+    <div class="row countdownDashboardRoom" ng-repeat="room in rooms">
+        <h1>Raum {{room}}</h1>
+        
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="countdown in countdownsArray | orderBy : 'name'" ng-if="countdown.room == room">
+            
+            <div class="row margin-bottom-lg">
+                <div class="col-xs-12">
+                    <div class="countdownWrapper text-center">
+                        <div class="countdownName">
+                            <a ng-href="#!/countdown/{{countdown.id}}">
+                                {{countdown.name}}
+                            </a>
+                        </div>
+                        <div class="countdownCurrentStateWrapper">
+                            <round-progress
+                            max="countdown.duration"
+                            current="countdown.currentState"
+                            color="#04caff"
+                            bgcolor="#252525"
+                            radius="100"
+                            stroke="10"
+                            semi="true"
+                            rounded="true"
+                            clockwise="true"
+                            responsive="true"
+                            duration="800"
+                            animation="easeInOutQuart"
+                            animation-delay="0">
+                        </round-progress>
+                        
+                        <div class="countdownCurrentState" ng-class="countdown.currentState < countdown.dangerTimeLeft ? 'danger' : 'ok'">
+                            {{countdown.currentState}}
+                        </div>
+                        
                     </div>
                     <div class="countdownDuration">
                         Countdown Dauer:<br>
@@ -61,6 +63,7 @@
             </div>
         </div>
     </div>
+</div>
 
 </div>
 
@@ -127,10 +130,10 @@
                         </div>
                     </div>
                 </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Schließen</button>
-                <button type="button" class="btn btn-success" ng-click="save(configCountdown)">Speichern</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Schließen</button>
+                    <button type="button" class="btn btn-success" ng-click="save(configCountdown)">Speichern</button>
+                </div>
             </div>
         </div>
     </div>
-</div>

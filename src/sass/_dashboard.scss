@@ -1,5 +1,31 @@
 .countdownDashboard {
+    
+    margin-right: 0;
+    margin-left: 0;
+    
+    .countdownDashboardRoom {
+
+        margin: 25px 0;
+
+        h1 {
+            margin-bottom: 15px;
+            padding: 5px 25px;
+            margin-top: 0;
+            background: rgba(0, 133, 255, 0.36);
+            
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 26px;
+                padding: 5px;
+            }
+        }
+    }
+    
     .countdownWrapper {
+        
+        margin-top: 0;
         
         .countdownName {
             margin-left: -25px;
@@ -22,7 +48,7 @@
         .countdownCurrentStateWrapper {
             .countdownCurrentState {
                 font-size: 80px;
-                bottom: 180px;
+                bottom: 190px;
             }
         }
 

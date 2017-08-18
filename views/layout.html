@@ -74,7 +74,7 @@
                                 {{room}} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li ng-repeat="countdown in countdowns" ng-if="countdown.room == room" ng-class="currentCountdownId == countdown.id ? 'active' : ''">
+                                <li ng-repeat="countdown in countdownsArray | orderBy : 'name'" ng-if="countdown.room == room" ng-class="currentCountdownId == countdown.id ? 'active' : ''">
                                     <a ng-href="#!/countdown/{{countdown.id}}">
                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                         {{countdown.name}}

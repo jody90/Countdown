@@ -14,26 +14,31 @@ myApp.config(function($routeProvider) {
 })
 
 myApp.run(['$rootScope', '$location', '$routeParams', 'socket', function($rootScope, $location, $routeParams, socket) {
-
+    
     $rootScope.mutedCountdowns = JSON.parse(localStorage.getItem("mutedCountdowns")) || [];
-
+    
     socket.on('availableCountdowns', function(data) {
         $rootScope.countdowns = data;
+        $rootScope.countdownsArray = Object.keys($rootScope.countdowns).map(function(key) {
+            return $rootScope.countdowns[key];
+        });
+        
+        console.log("$rootScope.arrFromMyObj: ", $rootScope.arrFromMyObj);
     })
     
     socket.on('rooms', function(data) {
         $rootScope.rooms = data;
     })
-
+    
     socket.on('meta', function(data) {
         $rootScope.meta = data;
     })
-
+    
     $rootScope.$on('$routeChangeSuccess', function(e, current, pre) {
         $rootScope.currentPath = $location.path();
-
+        
         $rootScope.currentCountdownId = $routeParams.countdownId;
-
+        
         if ($rootScope.currentPath == "/") {
             $rootScope.headerText = "Countdown Manager";
         }
@@ -42,9 +47,10 @@ myApp.run(['$rootScope', '$location', '$routeParams', 'socket', function($rootSc
         }
         
         $('.navbar-collapse').collapse('hide');
-
+        
     });
-
+    
+    
 }]);
 
 myApp.factory('socket', function ($rootScope) {
