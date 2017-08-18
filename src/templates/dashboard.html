@@ -18,7 +18,7 @@
     <div class="row countdownDashboardRoom" ng-repeat="room in rooms">
         <h1>Raum {{room}}</h1>
         
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="countdown in countdownsArray | orderBy : 'name'" ng-if="countdown.room == room">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="countdown in countdowns" ng-if="countdown.room == room" >
             
             <div class="row margin-bottom-lg">
                 <div class="col-xs-12">

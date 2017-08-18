@@ -13,19 +13,24 @@ myApp.config(function($routeProvider) {
     .otherwise({redirectTo: "/"});
 })
 
+myApp.filter("toArray", function(){
+    return function(obj) {
+        var result = [];
+        angular.forEach(obj, function(val, key) {
+            result.push(val);
+        });
+        return result;
+    };
+});
+
 myApp.run(['$rootScope', '$location', '$routeParams', 'socket', function($rootScope, $location, $routeParams, socket) {
     
     $rootScope.mutedCountdowns = JSON.parse(localStorage.getItem("mutedCountdowns")) || [];
     
     socket.on('availableCountdowns', function(data) {
         $rootScope.countdowns = data;
-        $rootScope.countdownsArray = Object.keys($rootScope.countdowns).map(function(key) {
-            return $rootScope.countdowns[key];
-        });
-        
-        console.log("$rootScope.arrFromMyObj: ", $rootScope.arrFromMyObj);
     })
-    
+
     socket.on('rooms', function(data) {
         $rootScope.rooms = data;
     })
