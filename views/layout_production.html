@@ -55,19 +55,26 @@
                     <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
                 </a>
             </div>
-
+            
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li ng-repeat="countdown in countdowns" ng-class="currentCountdownId == countdown.id ? 'active' : ''">
-                        <a ng-href="#!/countdown/{{countdown.id}}">
-                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                            {{countdown.name}}
+                    <li class="dropdown" ng-repeat="room in rooms">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            {{room}} <span class="caret"></span>
                         </a>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="countdown in countdownsArray | orderBy : 'name'" ng-if="countdown.room == room" ng-class="currentCountdownId == countdown.id ? 'active' : ''">
+                                <a ng-href="#!/countdown/{{countdown.id}}">
+                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                    {{countdown.name}}
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
         </nav>
-
+        
         <div class="header" ng-if="headerText !== undefined">
             <h1>{{headerText}}</h1>
         </div>
