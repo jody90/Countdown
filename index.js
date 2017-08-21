@@ -14,9 +14,13 @@ var io           = require('socket.io').listen(server);
 var passwordsFs = fs.readFileSync(__dirname + '/storage/passwords.json');
 var passwords = JSON.parse(passwordsFs);
 
-var countdownsStorageFs = fs.readFileSync(__dirname + '/storage/countdowns.json');
-var countdownsStorage = JSON.parse(countdownsStorageFs);
-var countdowns = countdownsStorage;
+var countdowns = {};
+
+if (fs.existsSync(__dirname + '/storage/countdowns.json')) {
+    let countdownsStorageFs = fs.readFileSync(__dirname + '/storage/countdowns.json');
+    let countdownsStorage = JSON.parse(countdownsStorageFs);
+    countdowns = countdownsStorage;
+}
 
 app.use('/css', express.static(__dirname + '/ressources/css'));
 app.use('/angular', express.static(__dirname + '/ressources/angular'));
