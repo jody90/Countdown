@@ -48,8 +48,9 @@
                 animation="easeInOutQuart"
                 animation-delay="0">
                 </round-progress>
+                
 
-                <div class="countdownCurrentState" ng-class="countdown.currentState <= countdown.dangerTimeLeft ? 'danger' : 'ok'">
+                <div class="countdownCurrentState" ng-class="parseInt(countdown.currentState) <= parseInt(countdown.dangerTimeLeft) ? 'danger' : 'ok'">
                     {{countdown.currentState}}
                 </div>
             </div>
