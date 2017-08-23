@@ -150,7 +150,7 @@ var startCountdown = function(id) {
             countdowns[id].currentState = 0;
             clearInterval(timer[id]);
         }
-    }, 1000); // 60000 one minute
+    }, 60000); // 60000 one minute
 }
 
 var pauseCountdown = function(id) {
