@@ -142,12 +142,16 @@ var timer = {};
 
 var startCountdown = function(id) {
     countdowns[id].currentState = countdowns[id].currentState || countdowns[id].duration;
+    console.log("startCountdown: ", id + " Uhrzeit: " + new Date() + " currentState: " + countdowns[id].currentState);
     timer[id] = setInterval(function() {
+
         if (countdowns[id].currentState - 1 > 0) {
             countdowns[id].currentState = countdowns[id].currentState - 1;
+            console.log("if intervalCountdown: ", id + " Uhrzeit: " + new Date() + " currentState: " + countdowns[id].currentState);
         }
         else {
             countdowns[id].currentState = 0;
+            console.log("else intervalCountdown: ", id + " Uhrzeit: " + new Date() + " currentState: " + countdowns[id].currentState);
             clearInterval(timer[id]);
         }
     }, 60000); // 60000 one minute
