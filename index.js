@@ -139,19 +139,20 @@ io.on('connection', function (socket) {
 });
 
 var timer = {};
+var startTimes = {};
 
 var startCountdown = function(id) {
     countdowns[id].currentState = countdowns[id].currentState || countdowns[id].duration;
     console.log("startCountdown: ", id + " Uhrzeit: " + new Date() + " currentState: " + countdowns[id].currentState);
     
-    countdowns[id].startTime = Date.now();
+    startTimes[id] = Date.now();
     
     timer[id] = setInterval(function() {
 
-        // console.log("difference ["+id+"]: ", Date.now() - countdowns[id].startTime);
+        // console.log("difference ["+id+"]: ", Date.now() - startTimes[id]);
         
-        if (Date.now() - countdowns[id].startTime > 59900) {
-            countdowns[id].startTime = Date.now();
+        if (Date.now() - startTimes[id] > 59900) {
+            startTimes[id] = Date.now();
             
             if (countdowns[id].currentState - 1 > 0) {
                 countdowns[id].currentState = countdowns[id].currentState - 1;
