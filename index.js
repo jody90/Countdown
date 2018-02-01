@@ -143,18 +143,30 @@ var timer = {};
 var startCountdown = function(id) {
     countdowns[id].currentState = countdowns[id].currentState || countdowns[id].duration;
     console.log("startCountdown: ", id + " Uhrzeit: " + new Date() + " currentState: " + countdowns[id].currentState);
+    
+    countdowns[id].startTime = Date.now();
+    
     timer[id] = setInterval(function() {
 
-        if (countdowns[id].currentState - 1 > 0) {
-            countdowns[id].currentState = countdowns[id].currentState - 1;
-            console.log("if intervalCountdown: ", id + " Uhrzeit: " + new Date() + " currentState: " + countdowns[id].currentState);
+        // console.log("difference ["+id+"]: ", Date.now() - countdowns[id].startTime);
+        
+        if (Date.now() - countdowns[id].startTime > 59900) {
+            countdowns[id].startTime = Date.now();
+            
+            if (countdowns[id].currentState - 1 > 0) {
+                countdowns[id].currentState = countdowns[id].currentState - 1;
+                // console.log("if intervalCountdown: ", id + " Uhrzeit: " + new Date() + " currentState: " + countdowns[id].currentState);
+            }
+            else {
+                countdowns[id].currentState = 0;
+                // console.log("else intervalCountdown: ", id + " Uhrzeit: " + new Date() + " currentState: " + countdowns[id].currentState);
+                clearInterval(timer[id]);
+            }
         }
-        else {
-            countdowns[id].currentState = 0;
-            console.log("else intervalCountdown: ", id + " Uhrzeit: " + new Date() + " currentState: " + countdowns[id].currentState);
-            clearInterval(timer[id]);
-        }
-    }, 60000); // 60000 one minute
+
+
+
+    }, 100); // 60000 one minute
 }
 
 var pauseCountdown = function(id) {
