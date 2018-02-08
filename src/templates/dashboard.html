@@ -23,10 +23,18 @@
             <div class="row margin-bottom-lg">
                 <div class="col-xs-12">
                     <div class="countdownWrapper text-center">
-                        <div class="countdownName">
-                            <a ng-href="#!/countdown/{{countdown.id}}">
-                                {{countdown.name}}
-                            </a>
+                        <div class="row countdownWrapperHeader">
+                            <div class="activeStateIcon left col-xs-1">
+                                <span class="glyphicon" ng-class="countdown.activeState == 'paused' ? 'glyphicon-pause' : 'glyphicon-play'" aria-hidden="true"></span>
+                            </div>
+                            <div class="countdownName col-xs-10">
+                                <a ng-href="#!/countdown/{{countdown.id}}">
+                                    {{countdown.name}}
+                                </a>
+                            </div>
+                            <div class="activeStateIcon right col-xs-1">
+                                <span class="glyphicon" ng-class="countdown.activeState == 'paused' ? 'glyphicon-pause' : 'glyphicon-play'" aria-hidden="true"></span>
+                            </div>
                         </div>
                         <div class="countdownCurrentStateWrapper">
                             <round-progress

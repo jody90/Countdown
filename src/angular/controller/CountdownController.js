@@ -9,6 +9,7 @@ myApp.controller('CountdownController', ['$scope', '$rootScope', 'socket', '$rou
     $rootScope.$watch("countdowns", function(newValue, oldValue) {
         if (newValue != undefined) {
             $scope.countdown = newValue[$rootScope.currentCountdownId];
+            console.log("countdown: ", $scope.countdown);
         }
     });
 

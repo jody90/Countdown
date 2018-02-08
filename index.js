@@ -150,8 +150,8 @@ var startCountdown = function(id) {
     timer[id] = setInterval(function() {
 
         // console.log("difference ["+id+"]: ", Date.now() - startTimes[id]);
-        
-        if (Date.now() - startTimes[id] > 59900) {
+        // 59900
+        if (Date.now() - startTimes[id] > 990) {
             startTimes[id] = Date.now();
             
             if (countdowns[id].currentState - 1 > 0) {
@@ -164,14 +164,14 @@ var startCountdown = function(id) {
                 clearInterval(timer[id]);
             }
         }
+        countdowns[id].activeState = "active";
 
-
-
-    }, 100); // 60000 one minute
+    }, 100);
 }
 
 var pauseCountdown = function(id) {
     clearInterval(timer[id]);
+    countdowns[id].activeState = "paused";
 }
 
 var resetCountdown = function(id) {

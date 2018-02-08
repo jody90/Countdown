@@ -1,98 +1,127 @@
-.countdownPage,
-.countdownDashboard {
+.countdownWrapper {
+    
+    border: 1px solid rgba(33, 33, 33, 0.3);
+    margin-bottom: 25px;
+    margin-top: 70px;
+    padding: 25px;
+    
+    .countdownWrapperHeader {
+        background: rgba(33, 33, 33, 0.3);
+        font-size: 36px;
+        margin-left: -25px;
+        margin-right: -25px;
+        margin-top: -25px;
+    }
+    
+    .activeStateIcon {
+        margin-top: 5px;
+        color: #eaae05;
+    }
+    
+    .countdownControls {
+        button {
+            margin: 25px 25px 0 25px;
+            min-width: 170px;
+        }
+        
+        .muteIcon {
+            font-size: 18px;
+            margin-top: -4px;
+            vertical-align: middle;
+        }
+    }
+    
+    .countdownCurrentStateWrapper {
+        
+        max-width: 900px;
+        margin: 25px auto;
+        
+        .countdownCurrentState {
+            font-size: 280px;
+            position: absolute;
+            bottom: 130px;
+            width: 100%;
+            left: 0;
+            
+            &.danger {
+                color: #ff0000;
+            }
+            
+            &.ok {
+                color: #31b10b;
+            }
+        }
+    }
+    
+    .countdownDuration {
+        font-size: 60px;
+    }
+}
 
+@media (max-width: $screen-xs-max) {
     .countdownWrapper {
-
+        
         border: 1px solid rgba(33, 33, 33, 0.3);
         margin-bottom: 25px;
         margin-top: 70px;
-        padding: 25px;
-
+        
         .countdownName {
-            font-size: 36px;
-            background: rgba(33, 33, 33, 0.3);
-            margin-left: -25px;
-            margin-right: -25px;
-            margin-top: -25px;
+            font-size: 26px;
         }
-
-        .countdownControls {
-            button {
-                margin: 25px 25px 0 25px;
-                min-width: 170px;
-            }
-
-            .muteIcon {
-                font-size: 18px;
-                margin-top: -4px;
-                vertical-align: middle;
-            }
-        }
-
+        
         .countdownCurrentStateWrapper {
-
-            max-width: 900px;
-            margin: 25px auto;
-
+            
             .countdownCurrentState {
-                font-size: 280px;
-                position: absolute;
-                bottom: 130px;
-                width: 100%;
-                left: 0;
-
-                &.danger {
-                    color: #ff0000;
-                }
-
-                &.ok {
-                    color: #31b10b;
-                }
+                font-size: 80px;
+                bottom: 180px;
             }
         }
-
+        
         .countdownDuration {
-            font-size: 60px;
-        }
-
-    }
-
-    @media (max-width: $screen-xs-max) {
-        .countdownWrapper {
-
-            border: 1px solid rgba(33, 33, 33, 0.3);
-            margin-bottom: 25px;
-            margin-top: 70px;
-
-            .countdownName {
-                font-size: 26px;
-                background: rgba(33, 33, 33, 0.3);
-            }
-
-            .countdownCurrentStateWrapper {
-
-                .countdownCurrentState {
-                    font-size: 80px;
-                    // top: 55%;
-                    bottom: 180px;
-                }
-            }
-
-            .countdownDuration {
-                font-size: 35px;
-            }
-
+            font-size: 35px;
         }
     }
+}
 
-    // @media (min-width: $screen-xs-max) {
-    //     .countdownWrapper {
-    //         .countdownCurrentStateWrapper {
-    //             .countdownCurrentState {
-    //                 font-size: 80px;
-    //                 top: 45%;
-    //             }
-    //         }
-    //     }
-    // }
+.countdownDashboard {
+    margin-top: 0;
+    
+    .countdownName {
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top: 0px;
+        
+        a {
+            color: #fff;
+            text-decoration: none;
+            
+            &:hover,
+            &:focus,
+            &:active {
+                color: #fff;
+                text-decoration: none;
+            }
+        }
+    }
+    
+    .countdownWrapperHeader {
+        font-size: 24px;
+    }
+    
+    .activeStateIcon {
+        margin-top: 5px;
+        margin-left: -5px;
+        color: #eaae05;
+    }
+
+    .countdownCurrentStateWrapper {
+        .countdownCurrentState {
+            font-size: 80px;
+            bottom: 190px;
+        }
+    }
+
+    .countdownDuration {
+        font-size: 30px;
+    }
 }
