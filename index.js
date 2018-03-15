@@ -151,7 +151,7 @@ var startCountdown = function(id) {
 
         // console.log("difference ["+id+"]: ", Date.now() - startTimes[id]);
         // 59900
-        if (Date.now() - startTimes[id] > 990) {
+        if (Date.now() - startTimes[id] > 59900) {
             startTimes[id] = Date.now();
             
             if (countdowns[id].currentState - 1 > 0) {
